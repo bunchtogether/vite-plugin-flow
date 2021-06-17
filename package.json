@@ -1,0 +1,37 @@
+{
+  "name": "@bunchtogether/vite-plugin-flow",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/bunchtogether/vite-plugin-flow.git",
+  "author": "johnwehr@bunchtogether.com",
+  "scripts": {
+    "build": "rm -rf ./dist; flow-remove-types ./src --out-dir ./dist && flow-copy-source ./src ./dist",
+    "flow-typed": "./node_modules/.bin/flow-typed install --overwrite",
+    "lint": "npm run lint:js && npm run lint:flow",
+    "lint:js": "eslint -c ./.eslintrc --no-eslintrc --fix --cache .",
+    "lint:flow": "flow --show-all-errors",
+    "documentation": "documentation readme src/index.js --section='API'",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.3",
+    "documentation": "^13.2.5",
+    "eslint": "^7.28.0",
+    "eslint-config-bunchtogether": "^1.1.6",
+    "eslint-plugin-flowtype": "^5.7.2",
+    "eslint-plugin-flowtype-errors": "^4.4.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "flow-bin": "^0.153.0",
+    "flow-copy-source": "^2.0.9",
+    "flow-typed": "^3.3.1",
+    "husky": "^6.0.0"
+  },
+  "dependencies": {
+    "flow-remove-types": "^2.153.0",
+    "rollup-pluginutils": "^2.8.2"
+  }
+}

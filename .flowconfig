@@ -1,0 +1,12 @@
+[ignore]
+
+.*/node_modules/documentation/*
+.*/dist/.*.flow
+[include]
+
+[libs]
+
+flow/
+
+[options]
+traces=3
