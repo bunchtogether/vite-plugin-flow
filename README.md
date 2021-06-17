@@ -1,5 +1,3 @@
-# Boost Client
-
 # vite-plugin-flow
 
 Support [Flow static type checking](https://flow.org/) in [Vite](https://vitejs.dev/)
@@ -53,17 +51,19 @@ Create a Vite plugin object
 *   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Filter options (optional, default `{include:/\.(flow|jsx?)$/,exclude:/node_modules/}`)
 
     *   `options.include` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Regexp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Regexp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp))>)** Strings and/or regular expressions matching file paths to include (optional, default `/\.(flow|jsx?)$/`)
-    *   `options.exclude` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Regexp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Regexp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp))>)** Strings and/or regular expressions matching ffile paths to exclude (optional, default `/node_modules/`)
+    *   `options.exclude` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Regexp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Regexp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp))>)** Strings and/or regular expressions matching file paths to exclude (optional, default `/node_modules/`)
 
 Returns **VitePlugin** Returns esbuild plugin object
 
 ### esbuildFlowPlugin
 
+*   **See**: [esbuild plugins documentation](https://esbuild.github.io/plugins/#resolve-callbacks)
+
 Create an esbuild plugin object
 
 #### Parameters
 
-*   `filter` **[RegExp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp)** Regular expression matching the path a files to be processed ({@link <https://esbuild.github.io/plugins/#resolve-callbacks|esbuild> plugins documentation}) (optional, default `/\.(flow|jsx?)$/`)
-*   `loaderFunction` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `defaultloaderFunction`)
+*   `filter` **[RegExp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp)** Regular expression matching the path a files to be processed (optional, default `/\.(flow|jsx?)$/`)
+*   `loaderFunction` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Function that accepts the file path and returns the esbuild loader type (optional, default `(path)=>(/\.jsx$/.test(path)?'jsx':'js')`)
 
 Returns **EsbuildPlugin** Returns esbuild plugin object

@@ -57,10 +57,10 @@ type EsbuildPlugin = {
  * Create a Vite plugin object
  * @param {Object} [options] Filter options
  * @param {string | Regexp | Array<string | Regexp>} [options.include=/\.(flow|jsx?)$/] - Strings and/or regular expressions matching file paths to include
- * @param {string | Regexp | Array<string | Regexp>} [options.exclude=/node_modules/] - Strings and/or regular expressions matching ffile paths to exclude
+ * @param {string | Regexp | Array<string | Regexp>} [options.exclude=/node_modules/] - Strings and/or regular expressions matching file paths to exclude
  * @returns {VitePlugin} Returns esbuild plugin object
  */
-module.exports.flowPlugin = function (options: VitePluginOptions = { include: /\.(flow|jsx?)$/, exclude: /node_modules/ }):VitePlugin {
+module.exports.flowPlugin = function flowPlugin(options: VitePluginOptions = { include: /\.(flow|jsx?)$/, exclude: /node_modules/ }):VitePlugin {
   const filter = createFilter(options.include, options.exclude);
   return {
     enforce: 'pre',
@@ -83,11 +83,12 @@ const defaultloaderFunction = (path:string) => (jsxRegex.test(path) ? 'jsx' : 'j
 
 /**
  * Create an esbuild plugin object
- * @param {RegExp} [filter=/\.(flow|jsx?)$/] Regular expression matching the path a files to be processed ({@link https://esbuild.github.io/plugins/#resolve-callbacks|esbuild plugins documentation})
- * @param {(string) => string} [loaderFunction] Function that accepts the file path and returning the esbuild loader type
+ * @param {RegExp} [filter=/\.(flow|jsx?)$/] Regular expression matching the path a files to be processed
+ * @param {Function} [loaderFunction=(path) => (/\.jsx$/.test(path) ? 'jsx' : 'js')] Function that accepts the file path and returns the esbuild loader type
  * @returns {EsbuildPlugin} Returns esbuild plugin object
+ * @see {@link https://esbuild.github.io/plugins/#resolve-callbacks|esbuild plugins documentation}
  */
-module.exports.esbuildFlowPlugin = function (filter: RegExp = /\.(flow|jsx?)$/, loaderFunction: (string) => string = defaultloaderFunction):EsbuildPlugin {
+module.exports.esbuildFlowPlugin = function esbuildFlowPlugin(filter: RegExp = /\.(flow|jsx?)$/, loaderFunction: (string) => string = defaultloaderFunction):EsbuildPlugin {
   return {
     name: 'flow',
     setup(build) {
@@ -123,3 +124,4 @@ module.exports.esbuildFlowPlugin = function (filter: RegExp = /\.(flow|jsx?)$/, 
     },
   };
 };
+
