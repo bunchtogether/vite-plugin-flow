@@ -5,7 +5,7 @@
   "repository": "https://github.com/bunchtogether/vite-plugin-flow.git",
   "author": "johnwehr@bunchtogether.com",
   "scripts": {
-    "build": "rm -rf ./dist; flow-remove-types ./src --out-dir ./dist && flow-copy-source ./src ./dist",
+    "build": "rm -rf ./dist && flow-remove-types --pretty ./src --out-dir ./dist && flow-copy-source ./src ./dist",
     "flow-typed": "./node_modules/.bin/flow-typed install --overwrite",
     "lint": "npm run lint:js && npm run lint:flow",
     "lint:js": "eslint -c ./.eslintrc --no-eslintrc --fix --cache .",
@@ -31,7 +31,7 @@
     "husky": "^6.0.0"
   },
   "dependencies": {
-    "flow-remove-types": "^2.153.0",
+    "flow-remove-types": "^2.158.0",
     "rollup-pluginutils": "^2.8.2"
   }
 }
