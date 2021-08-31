@@ -7,7 +7,7 @@ const { readFile } = require('fs');
 type VitePlugin = {
   enforce: string,
   name: string | RegExp,
-  transform: (string, string) => (void | { code: string, map:string })
+  transform: (string, string) => (void | { code: string, map: string })
 };
 
 type VitePluginOptions = {
@@ -55,7 +55,7 @@ type Location = {
 
 type EsbuildPlugin = {
   name: string,
-  setup: ({onLoad: OnLoadFunc}) => void
+  setup: ({ onLoad: OnLoadFunc }) => void
 };
 
 // noinspection FlowJSFlagCommentPlacement
@@ -81,12 +81,12 @@ module.exports.flowPlugin = function flowPlugin(options: VitePluginOptions = {
     pretty: true,
     ignoreUninitializedFields: false,
   },
-}):VitePlugin {
+}): VitePlugin {
   const filter = createFilter(options.include, options.exclude);
   return {
     enforce: 'pre',
     name: 'flow',
-    transform(src:string, id:string) { // eslint-disable-line consistent-return
+    transform(src: string, id: string) { // eslint-disable-line consistent-return
       if (filter(id)) {
         const transformed = flowRemoveTypes(src, options.flow);
         return {
@@ -100,7 +100,7 @@ module.exports.flowPlugin = function flowPlugin(options: VitePluginOptions = {
 
 const jsxRegex = /\.jsx$/;
 
-const defaultloaderFunction = (path:string) => (jsxRegex.test(path) ? 'jsx' : 'js');
+const defaultloaderFunction = (path: string) => (jsxRegex.test(path) ? 'jsx' : 'js');
 
 /**
  * Create an esbuild plugin object
@@ -125,7 +125,7 @@ module.exports.esbuildFlowPlugin = function esbuildFlowPlugin(filter: RegExp = /
   all: false,
   pretty: true,
   ignoreUninitializedFields: false,
-}):EsbuildPlugin {
+}): EsbuildPlugin {
   return {
     name: 'flow',
     setup(build) {
