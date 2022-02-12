@@ -1,3 +1,6 @@
+# vite-plugin-flow
+
+Support [Flow static type checking](https://flow.org/) in [Vite](https://vitejs.dev/)
 
 ## Install
 
