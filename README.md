@@ -48,7 +48,7 @@ Create a Vite plugin object
 
 #### Parameters
 
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Filter options (optional, default `{include:/\.(flow|jsx?)$/,exclude:/node_modules/,flow:{all:false,pretty:true,ignoreUninitializedFields:false}}`)
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Filter options (optional, default `{include:/\.(flow|jsx?)$/,exclude:/node_modules/,flow:{all:false,pretty:false,ignoreUninitializedFields:false}}`)
 
     *   `options.include` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Regexp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Regexp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp))>)** Strings and/or regular expressions matching file paths to include (optional, default `/\.(flow|jsx?)$/`)
     *   `options.exclude` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Regexp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Regexp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp))>)** Strings and/or regular expressions matching file paths to exclude (optional, default `/node_modules/`)
@@ -65,10 +65,10 @@ Create an esbuild plugin object
 
 *   `filter` **[RegExp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp)** Regular expression matching the path a files to be processed (optional, default `/\.(flow|jsx?)$/`)
 *   `loaderFunction` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Function that accepts the file path and returns the esbuild loader type (optional, default `(path)=>(/\.jsx$/.test(path)?'jsx':'js')`)
-*   `flowOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options to pass to flow-remove-types (optional, default `{all:false,pretty:true,ignoreUninitializedFields:false}`)
+*   `flowOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options to pass to flow-remove-types (optional, default `{all:false,pretty:false,ignoreUninitializedFields:false}`)
 
     *   `flowOptions.all` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If true, bypasses looking for an @flow pragma comment before parsing. (optional, default `false`)
-    *   `flowOptions.pretty` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If true, removes types completely rather than replacing with spaces. (optional, default `true`)
+    *   `flowOptions.pretty` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If true, removes types completely rather than replacing with spaces. (optional, default `false`)
     *   `flowOptions.ignoreUninitializedFields` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If true, removes uninitialized class fields (`foo;`, `foo: string;`)
         completely rather than only removing the type. THIS IS NOT SPEC
         COMPLIANT! Instead, use `declare foo: string;` for type-only fields. (optional, default `false`)
