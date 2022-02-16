@@ -7,7 +7,7 @@ const { readFile } = require('fs');
 type VitePlugin = {
   enforce: string,
   name: string | RegExp,
-  transform: (string, string) => (void | { code: string, map: string })
+  transform: (string, string) => (void | { code: string, map: null })
 };
 
 type VitePluginOptions = {
@@ -66,7 +66,7 @@ type EsbuildPlugin = {
  * @param {string | Regexp | Array<string | Regexp>} [options.include=/\.(flow|jsx?)$/] - Strings and/or regular expressions matching file paths to include
  * @param {string | Regexp | Array<string | Regexp>} [options.exclude=/node_modules/] - Strings and/or regular expressions matching file paths to exclude
  * @param {boolean} [options.flow.all=false] - If true, bypasses looking for an @flow pragma comment before parsing.
- * @param {boolean} [options.flow.pretty=true] - If true, removes types completely rather than replacing with spaces.
+ * @param {boolean} [options.flow.pretty=false] - If true, removes types completely rather than replacing with spaces.
  * @param {boolean} [options.flow.ignoreUninitializedFields=false] - If true, removes uninitialized class fields (`foo;`, `foo: string;`)
  *     completely rather than only removing the type. THIS IS NOT SPEC
  *     COMPLIANT! Instead, use `declare foo: string;` for type-only fields.
@@ -78,7 +78,7 @@ module.exports.flowPlugin = function flowPlugin(options: VitePluginOptions = {
   exclude: /node_modules/,
   flow: {
     all: false,
-    pretty: true,
+    pretty: false,
     ignoreUninitializedFields: false,
   },
 }): VitePlugin {
@@ -91,7 +91,7 @@ module.exports.flowPlugin = function flowPlugin(options: VitePluginOptions = {
         const transformed = flowRemoveTypes(src, options.flow);
         return {
           code: transformed.toString(),
-          map: transformed.generateMap(),
+          map: null,
         };
       }
     },
@@ -109,7 +109,7 @@ const defaultloaderFunction = (path: string) => (jsxRegex.test(path) ? 'jsx' : '
  * @param {Function} [loaderFunction=(path) => (/\.jsx$/.test(path) ? 'jsx' : 'js')] Function that accepts the file path and returns the esbuild loader type
  * @param {Object} flowOptions - Options to pass to flow-remove-types
  * @param {boolean} [flowOptions.all=false] - If true, bypasses looking for an @flow pragma comment before parsing.
- * @param {boolean} [flowOptions.pretty=true] - If true, removes types completely rather than replacing with spaces.
+ * @param {boolean} [flowOptions.pretty=false] - If true, removes types completely rather than replacing with spaces.
  * @param {boolean} [flowOptions.ignoreUninitializedFields=false] - If true, removes uninitialized class fields (`foo;`, `foo: string;`)
  *     completely rather than only removing the type. THIS IS NOT SPEC
  *     COMPLIANT! Instead, use `declare foo: string;` for type-only fields.
@@ -123,7 +123,7 @@ module.exports.esbuildFlowPlugin = function esbuildFlowPlugin(filter: RegExp = /
   ignoreUninitializedFields: boolean,
 } = {
   all: false,
-  pretty: true,
+  pretty: false,
   ignoreUninitializedFields: false,
 }): EsbuildPlugin {
   return {

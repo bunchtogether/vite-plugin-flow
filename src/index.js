@@ -7,7 +7,7 @@ const { readFile } = require('fs');
 type VitePlugin = {
   enforce: string,
   name: string | RegExp,
-  transform: (string, string) => (void | { code: string, map: string })
+  transform: (string, string) => (void | { code: string, map: null })
 };
 
 type VitePluginOptions = {
